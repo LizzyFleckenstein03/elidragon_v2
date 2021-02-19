@@ -14,7 +14,7 @@ Elidragon v2 runs on top of the latest git version of MineClone2, and the lastes
 Quick guide for installation and running
 ----------------------------------------
 
-ElidragonV2 requires a GNU/Linux system to run. The setup and update scripts rely on apt and sudo. Go 1.15 or higher is required.
+Elidragon v2 requires a GNU/Linux system to run. The setup and update scripts rely on apt and sudo. Go 1.15 or higher is required.
 
 1. Create a new user using adduser and switch to it. The user should be able to use sudo.
 2. git clone this repository into that user's home directory and rename it to .minetest
