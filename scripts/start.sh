@@ -3,6 +3,6 @@
 # Start one or all worlds
 # Arguments: [<worldname>]
 
-source scripts/internal.sh
+source source scripts/common.sh
 
 run_one_or_all start_world $1

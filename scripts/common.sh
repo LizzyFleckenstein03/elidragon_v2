@@ -1,4 +1,4 @@
-# internal functions used by Elidragon v2 scripts
+# common functions used by Elidragon v2 scripts
 
 function world_lock {
 	echo "/tmp/ElidragonV2_$1_lock"
