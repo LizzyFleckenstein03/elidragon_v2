@@ -1,3 +1,6 @@
 [submodule "mods/Minetest-WorldEdit"]
 	path = mods/Minetest-WorldEdit
 	url = https://github.com/Uberi/Minetest-WorldEdit
+[submodule "mods/multiserver_api"]
+	path = mods/multiserver_api
+	url = https://github.com/HimbeerserverDE/multiserver_api
