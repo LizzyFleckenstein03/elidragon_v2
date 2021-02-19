@@ -10,7 +10,7 @@ sudo add-apt-repository ppa:minetestdevs/stable
 sudo apt-get update -y
 
 # Install minetest and screen
-apt install minetest screen -y
+sudo apt install minetest screen -y
 
 # Install multiserver & rudp
 go get github.com/anon/multiserver
