@@ -9,6 +9,7 @@ load_mod_elidragon = true
 load_mod_elidragon_grouplist = false
 load_mod_elidragon_random = false
 load_mod_elidragon_request = false
+load_mod_elidragon_schems = false
 load_mod_elidragon_tp = false
 load_mod_elidragon_util = false
 load_mod_lucky_block = false
