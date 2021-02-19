@@ -7,3 +7,6 @@
 [submodule "mods/lucky_block"]
 	path = mods/lucky_block
 	url = https://notabug.org/TenPlus1/lucky_block
+[submodule "mods/default"]
+	path = mods/default
+	url = https://github.com/EliasFleckenstein03/default
