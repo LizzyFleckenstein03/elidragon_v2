@@ -7,6 +7,7 @@ player_backend = sqlite3
 load_mod_default = false
 load_mod_elidragon = true
 load_mod_elidragon_grouplist = false
+load_mod_elidragon_luckyblock = false
 load_mod_elidragon_random = false
 load_mod_elidragon_request = false
 load_mod_elidragon_schems = false
