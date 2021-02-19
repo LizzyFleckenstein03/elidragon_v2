@@ -6,11 +6,12 @@
 git submodule update --recursive --remote
 
 # Add apt repo to always get the lastest MT release
-add-apt-repository ppa:minetestdevs/stable
-apt-get update -y
+sudo add-apt-repository ppa:minetestdevs/stable
+sudo apt-get update -y
 
 # Install minetest and screen
 apt install minetest screen -y
 
-# Install multiserver
+# Install multiserver & rudp
+go get github.com/anon/multiserver
 go get github.com/HimbeerserverDE/multiserver

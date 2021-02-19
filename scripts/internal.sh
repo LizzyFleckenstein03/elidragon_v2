@@ -25,48 +25,62 @@ function loop_worlds {
 
 function assert_running {
 	if ! is_running $1; then
-		echo "Error: World $1 is not running"
-		exit 1
+		echo "\e[31mWorld $1 is not running\e[0m"
+		if [ -z "$2" ]; then
+			exit 1
+		else
+			return 1
+		fi
 	fi
 }
 
 function assert_not_running {
 	if is_running $1; then
-		echo "Error: World $1 is already running"
-		exit 1
+		echo -e "\e[31mWorld $1 is already running\e[0m"
+		if [ -z "$2" ]; then
+			exit 1
+		else
+			return 1
+		fi
 	fi
 }
 
 function start_world {
-	echo "Starting $1..."
-	assert_not_running $1
+	echo -n "Starting $1... "
+	if assert_not_running $1 "true"; then
+		LOCK=`world_lock $1`
 
-	LOCK=`world_lock $1`
+		screen -dmS `world_screenname $1` bash -c "
+			while is_running $1; do
+				bash -c \"
+					echo \\$\\$ > $LOCK
+					exec minetest --server --terminal --world worlds/$1 --config worlds/$1/minetest.conf --logfile worlds/$1/debug.txt 
+				\"
+			done
+			rm $LOCK
+		"
 
-	screen -dmS `world_screenname $1` bash -c "
-		while is_running $1; do
-			bash -c \"
-				echo \\$\\$ > $LOCK
-				exec minetest --server --terminal --world worlds/$1 --config worlds/$1/minetest.conf --logfile worlds/$1/debug.txt 
-			\"
-		done
-		rm $LOCK
-	"
+		echo "\e[32mDone\e[0m"
+	fi
 }
 
 function stop_world {
-	echo "Stopping $1..."
-	assert_running $1
+	echo -n "Stopping $1..."
+	if assert_running $1 "true"; then
+		kill_world $1
+		rm `world_lock $1`
 
-	kill_world $1
-	rm `world_lock $1`
+		echo "\e[32mDone\e[0m"
+	fi
 }
 
 function restart_world {
-	echo "Restarting $1..."
-	assert_running $1
+	echo -n "Restarting $1..."
+	if assert_running $1 "true"; then
+		kill_world $1
 
-	kill_world $1
+		echo "\e[32mDone\e[0m"
+	fi
 }
 
 function run_one_or_all {

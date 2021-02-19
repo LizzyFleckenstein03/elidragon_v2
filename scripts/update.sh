@@ -6,8 +6,8 @@
 git pull --recurse-submodules
 
 # Update minetest and screen
-apt-get update -y
-apt-get upgrade minetest screen -y
+sudo apt-get update -y
+sudo apt-get upgrade minetest screen -y
 
 # Update multiserver
 go get -u github.com/HimbeerserverDE/multiserver
