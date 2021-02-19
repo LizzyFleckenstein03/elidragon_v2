@@ -1,0 +1,14 @@
+host: "0.0.0.0:33000"
+servers:
+  lobby:
+    address: "127.0.0.1:30030"
+  survival:
+    address: "127.0.0.1:30031"
+  creative:
+    address: "127.0.0.1:30032"
+  skyblock:
+    address: "127.0.0.1:30033"
+default_server: lobby
+force_default_server: true
+admin: "Elidragon"
+csm_restriction_flags: 0
