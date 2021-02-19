@@ -10,3 +10,6 @@
 [submodule "mods/default"]
 	path = mods/default
 	url = https://github.com/EliasFleckenstein03/default
+[submodule "mods/mcl_wither_spawning"]
+	path = mods/mcl_wither_spawning
+	url = https://github.com/EliasFleckenstein03/mcl_wither_spawning
