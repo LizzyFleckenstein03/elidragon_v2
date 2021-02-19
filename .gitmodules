@@ -4,3 +4,6 @@
 [submodule "mods/multiserver_api"]
 	path = mods/multiserver_api
 	url = https://github.com/HimbeerserverDE/multiserver_api
+[submodule "mods/lucky_block"]
+	path = mods/lucky_block
+	url = https://notabug.org/TenPlus1/lucky_block
