@@ -13,3 +13,5 @@ elidragon.request.register({
 		player:set_pos(elidragon.util.find_free_position_near(target_pos))
 	end,
 })
+
+elidragon.tp = {}
