@@ -13,3 +13,6 @@
 [submodule "mods/mcl_wither_spawning"]
 	path = mods/mcl_wither_spawning
 	url = https://github.com/EliasFleckenstein03/mcl_wither_spawning
+[submodule "games/MineClone2"]
+	path = games/MineClone2
+	url = https://git.minetest.land/MineClone2/MineClone2
