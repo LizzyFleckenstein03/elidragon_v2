@@ -1,5 +1,6 @@
 #! /bin/bash
-# Setup script for the Elidragon v2 server
+# Elidragon v2 setup script
+# Install everything needed by the server
 
 # Initialize submodules
 git submodule update --recursive --remote

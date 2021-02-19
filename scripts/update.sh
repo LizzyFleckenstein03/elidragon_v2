@@ -1,5 +1,6 @@
 #! /bin/bash
-# Update script for the Elidragon v2 server
+# Elidragon v2 update script
+# Update all software used by the server
 
 # Update this repo, also update submodules
 git pull --recurse-submodules
