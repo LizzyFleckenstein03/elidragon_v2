@@ -46,7 +46,7 @@ scripts/restart.sh: You can use this to restart one or all running worlds. You c
 
 scripts/console.sh: You can used this to access the console of the world specified in the argument. (minetest --terminal running in a screen)
 
-scripts/internal.sh: This script should not be started, it contains common functions imported by other scripts. You can modify it to e.g. change the paths of lock files or screen names.
+scripts/common.sh: This script should not be started, it contains common functions imported by other scripts. You can modify it to e.g. change the paths of lock files or screen names.
 
 Creating new mods
 -----------------
