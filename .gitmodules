@@ -16,3 +16,6 @@
 [submodule "games/MineClone2"]
 	path = games/MineClone2
 	url = https://git.minetest.land/MineClone2/MineClone2
+[submodule "textures/server"]
+	path = textures/server
+	url = https://github.com/EliasFleckenstein03/mc-textures
