@@ -9,20 +9,22 @@ The goal of Elidragon v2 is to provide a server similar to popular Minecraft ser
 
 Minetest does not support "server-hopping" natively; therefore the multiserver proxy written in Go by HimbeerserverDE is used. multiserver depends on mt rudp by anon55555.
 
+For the creative map, minetest mapserver is used.
+
 Elidragon v2 runs on top of the latest git version of MineClone2, and the lastest stable release of minetest.
 
 Quick guide for installation and running
 ----------------------------------------
 
-Elidragon v2 requires a GNU/Linux system to run. The setup and update scripts rely on apt and sudo. Go 1.15 or higher is required.
+Elidragon v2 requires a GNU/Linux x86_64 system to run. The setup and update scripts rely on apt and sudo. Go 1.15 or higher is required. The ports 33000, 30030, 30031, 30032, 30033 and 8080 need to be open.
 
 1. Create a new user using adduser and switch to it. The user should be able to use sudo.
 2. git clone this repository into that user's home directory and rename it to .minetest
 3. cd into .minetest
-4. run scripts/setup.sh - this will automatically install minetest and screen. Also, it initialized the submodules - all external mods and MineClone2 are installed automatically. It will also install multiserver and its dependencies.
-5. run scripts/start.sh - this will automatically start all worlds and multiserver. If one world or multiserver crashes / shuts down it will automatically restart.
+4. run scripts/setup.sh - this will automatically install minetest and screen. Also, it initialized the submodules - all external mods and MineClone2 are installed automatically. It will also install mapserver, multiserver and its dependencies.
+5. run scripts/start.sh --all - this will automatically start all worlds, multiserver and mapserver. If one world or multiserver / mapserver crashes or shuts down it will automatically restarted.
 
-To update, run scripts/update.sh, to restart all worlds and multiserver run scripts/restart.sh and to stop all worlds and multiserver run scripts/stop.sh
+To update, run scripts/update.sh, to restart all worlds run scripts/restart.sh --worlds and to stop all worlds and multiserver run scripts/stop.sh --all.
 
 Organisation structure
 -------------------
@@ -34,17 +36,17 @@ Scripts
 
 For many tasks it is recommended to use the scripts from the scripts/ directory. All scripts need to be run from the root path of this repository.
 
-scripts/setup.sh: This will install minetest and screen using sudo apt. For minetest a apt repository is added that is up to date (the official repos are often one or two versions behind). It will use go to install multiserver, also it will init and update the submodules, which is very important because all external mods are added as submodules.
+scripts/setup.sh: This will install minetest and screen using sudo apt. For minetest a apt repository is added that is up to date (the official repos are often one or two versions behind). It will use go to install multiserver and mapserver, also it will init and update the submodules, which is very important because all external mods are added as submodules.
 
 scripts/update.sh: This will pull the repository including all submodules. Also, it will update minetest, screen and multiserver.
 
-scripts/start.sh: You can use this to start one or all worlds from the worlds folder. If you pass an argument to it, it will start the specified world, else it will start everything. You can use this script even if some worlds are already running. The worlds will be started in a hidden screen and restarted when killed, shut down using /shutdown or crash. Any started world will have a lock file in the /tmp directory that contains the PID of the current minetest process. When the world is stopped, the lock file is deleted. If --multiserver is used, multiserver is started instead of any worlds, and if all worlds are started, multiserver is started as well.
+scripts/start.sh <worldname> | multiserver | mapserver | --all | --worlds: You can use this to start one or all worlds from the worlds folder, or the mapserver / multiserver. When --all is used it will start everything, --worlds starts all worlds. You can use --all or --world even if some tasks that would be started by it are already running. All tasks will be started in a hidden screen and restarted when killed, shut down using /shutdown or they crash. Any started task will have a lock file in the /tmp directory that contains the PID of the current process. When the task is stopped, the lock file is deleted.
 
-scripts/stop.sh: You can use this to stop one or all worlds from the worlds folder started using the start script. If you pass an argument to it, it will stop the specified world, else it will stop everything. You can use this script even if some worlds are not running. If --multiserver is used, multiserver is stopped instead of any worlds, and if all worlds are stopped, multiserver is stopped as well.
+scripts/stop.sh <worldname> | multiserver | mapserver | --all | --worlds: You can use this to stop one or all worlds from the worlds folder or the mapserver / multiserver started using the start script. When --all is used it will stop everything, --worlds stops all worlds. You can use --all or --world even if some tasks that would be stopped by it are not running.
 
-scripts/restart.sh: You can use this to restart one or all running worlds. You can use this script even if some worlds are not running. It will only restart the running worlds. If --multiserver is used, multiserver is restarted instead of any worlds (in case it is running) and if all worlds are restarted, multiserver is restarted as well (in case it is running).
+scripts/restart.sh <worldname> | multiserver | mapserver | --all | --worlds: You can use this to restart one or all worlds from the worlds folder or the mapserver / multiserver started using the start script. When --all is used it will restart everything, --worlds restarts all worlds. You can use --all or --world even if some tasks that would be restarted by it are not running - only the running tasks will be restarted.
 
-scripts/console.sh: You can used this to access the console of the world specified in the argument (minetest --terminal running in a screen). If --multiserver is used, the multiserver screen will be shown.
+scripts/console.sh <worldname> | multiserver | mapserver: You can used this to access the console of the world specified in the argument (minetest --terminal running in a screen). If multiserver / mapserver is used, the multiserver / mapserver output will be shown (in real-time).
 
 scripts/common.sh: This script should not be started, it contains common functions imported by other scripts. You can modify it to e.g. change the paths of lock files or screen names.
 
@@ -72,3 +74,7 @@ Adding new worlds
 -----------------
 
 If you want to add a new world, add a folder to the worlds/directory. Then, create .gitignore, world.mt and minetest.conf in that directory. .gitignore needs to contain * to ignore everything, and !minetest.conf and !world.mt to include these two. minetest.conf and world.mt need to be created and filled, world.mt needs to contain load_mod_xy = true / false for every added mod, see the Adding existing mods section for that. Also, world.mt needs to contain database settings for map, players and auth data and settings to enable / disable creative mode and damage. Each world also has it's own configuration file. The concept for worlds and mods is that some mods are for one world only e.g. the skyblock mod for the skyblock world, and some are shared. Make sure that each world has the mods enabled that the enabled mods depend on. Every world needs to have a port specified in the config file and needs to be added to the multiserver configuration. Only the lobby server is supposed to announce to the server list and should announce the port multiserver is running on.
+
+Ports
+-----
+

@@ -1,10 +1,25 @@
 #! /bin/bash
 # Elidragon v2 stop script
-# Stop one or all worlds, or if --multiserver is used, the multiserver. If all worlds are stopped, multiserver is stopped as well
-# Arguments: [<worldname>]
+# Stop worlds, multiserver and mapserver
 
-source scripts/common.sh
+source source scripts/common.sh
 
-if [[ $1 == "--multiserver" || run_one_or_all stop_world $1 ]]; then
-	stop_multiserver
-fi
+case $1 in
+	"--all"
+		stop_mapserver
+		stop_multiserver
+		loop_worlds stop_world
+		;;
+	"--worlds")
+		loop_worlds stop_world
+		;;
+	"mapserver")
+		stop_mapserver
+		;;
+	"multiserver")
+		stop_multiserver
+		;;
+	*)
+		stop_world $1
+		;;
+esac

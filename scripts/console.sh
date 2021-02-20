@@ -1,13 +1,17 @@
 #! /bin/bash
 # Elidragon v2 console script
-# Attach to the console of a world or multiserver
-# Arguments: <worldname>
+# Attach to the screen of a world, multiserver or mapserver
 
 source scripts/common.sh
 
-if [[ $1 == "--multiserver" ]]; then
-	screen -r `multiserver_sceenname`
-else
-	assert_running $1
-	screen -r `world_screenname $1`
-fi
+case $1 in
+	"mapserver")
+		screen -r `mapserver_screenname`
+		;;
+	"multiserver")
+		screen -r `multiserver_sceenname`
+		;;
+	*)
+		screen -r `world_screenname $1`
+		;;
+esac
