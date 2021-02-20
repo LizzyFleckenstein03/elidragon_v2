@@ -17,11 +17,11 @@ function world_screenname {
 }
 
 function multiserver_screenname {
-	echo "Elidragon v2 - Multiserver"
+	echo "Elidragon v2 - multiserver"
 }
 
 function mapserver_screenname {
-	echo "Elidragon v2 - Mapserver"
+	echo "Elidragon v2 - mapserver"
 }
 
 function kill_world {
@@ -75,59 +75,59 @@ function start_mapserver {
 		cd ../..
 		echo -e "\e[32mDone\e[0m"
 	else
-		echo -e "\e[31mMapserver is already running\e[0m"
+		echo -e "\e[31mmapserver is already running\e[0m"
 	fi
 }
 
 function stop_mapserver {
-	echo -n "Stopping Mapserver... "
+	echo -n "Stopping mapserver... "
 	if mapserver_running; then
 		kill_mapserver
 		rm `mapserver_lock`
 		echo -e "\e[32mDone\e[0m"
 	else
-		echo -e "\e[31mMapserver is not running\e[0m"
+		echo -e "\e[31mmapserver is not running\e[0m"
 	fi
 }
 
 function restart_mapserver {
-	echo -n "Restarting Mapserver..."
+	echo -n "Restarting mapserver... "
 	if mapserver_running; then
 		kill_mapserver
 		echo -e "\e[32mDone\e[0m"
 	else
-		echo -e "\e[31mMapserver is not running\e[0m"
+		echo -e "\e[31mmapserver is not running\e[0m"
 	fi
 }
 
 function start_multiserver {
-	echo -n "Starting Multiserver... "
+	echo -n "Starting multiserver... "
 	if ! multiserver_running; then
 		run_in_screen `multiserver_screenname` `multiserver_lock` "~/go/bin/multiserver"
 		echo -e "\e[32mDone\e[0m"
 	else
-		echo -e "\e[31mMultiserver is already running\e[0m"
+		echo -e "\e[31mmultiserver is already running\e[0m"
 	fi
 }
 
 function stop_multiserver {
-	echo -n "Stopping Multiserver... "
+	echo -n "Stopping multiserver... "
 	if multiserver_running; then
 		kill_multiserver
 		rm `multiserver_lock`
 		echo -e "\e[32mDone\e[0m"
 	else
-		echo -e "\e[31mMultiserver is not running\e[0m"
+		echo -e "\e[31mmultiserver is not running\e[0m"
 	fi
 }
 
 function restart_multiserver {
-	echo -n "Restarting Multiserver..."
+	echo -n "Restarting multiserver... "
 	if multiserver_running; then
 		kill_multiserver
 		echo -e "\e[32mDone\e[0m"
 	else
-		echo -e "\e[31mMultiserver is not running\e[0m"
+		echo -e "\e[31mmultiserver is not running\e[0m"
 	fi
 }
 
@@ -137,27 +137,27 @@ function start_world {
 		run_in_screen `world_screenname $1` `world_lock $1` "minetest --server --terminal --world worlds/$1 --config worlds/$1/minetest.conf --logfile worlds/$1/debug.txt"
 		echo -e "\e[32mDone\e[0m"
 	else
-		echo -e "\e[31m$2 is already running\e[0m"
+		echo -e "\e[31m$1 is already running\e[0m"
 	fi
 }
 
 function stop_world {
-	echo -n "Stopping $1..."
+	echo -n "Stopping $1... "
 	if world_running $1; then
 		kill_world $1
 		rm `world_lock $1`
 		echo -e "\e[32mDone\e[0m"
 	else
-		echo -e "\e[31m$2 is already running\e[0m"
+		echo -e "\e[31m$1 is not running\e[0m"
 	fi
 }
 
 function restart_world {
-	echo -n "Restarting $1..."
+	echo -n "Restarting $1... "
 	if world_running $1; then
 		kill_world $1
 		echo -e "\e[32mDone\e[0m"
 	else
-		echo -e "\e[31m$2 is not running\e[0m"
+		echo -e "\e[31m$1 is not running\e[0m"
 	fi
 }
