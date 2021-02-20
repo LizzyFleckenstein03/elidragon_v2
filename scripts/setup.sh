@@ -12,6 +12,5 @@ sudo apt-get update -y
 # Install minetest and screen
 sudo apt install minetest screen -y
 
-# Install multiserver & rudp
-go get github.com/anon/multiserver
+# Install multiserver and its dependencies
 go get github.com/HimbeerserverDE/multiserver
