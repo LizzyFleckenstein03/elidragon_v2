@@ -2,7 +2,7 @@
 # Elidragon v2 stop script
 # Stop worlds, multiserver and mapserver
 
-source source scripts/common.sh
+source scripts/common.sh
 
 case $1 in
 	"--all")
