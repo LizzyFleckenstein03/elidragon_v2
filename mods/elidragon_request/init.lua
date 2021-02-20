@@ -1,7 +1,7 @@
 local request = {}
 
 function request.register(def)
-	local sysname, description, progressive, preposition, func = def.name, def.description, def.progressive, def.func
+	local sysname, description, progressive, preposition, func = def.name, def.description, def.progressive, def.preposition, def.func
 	local desc_capitalized = (description:sub(1, 1)):upper() .. description:sub(2)
 
 	local request_pool = {}
