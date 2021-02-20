@@ -5,7 +5,7 @@
 source source scripts/common.sh
 
 case $1 in
-	"--all"
+	"--all")
 		start_mapserver
 		start_multiserver
 		loop_worlds start_world
