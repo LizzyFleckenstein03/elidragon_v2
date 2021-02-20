@@ -20,9 +20,9 @@ Elidragon v2 requires a GNU/Linux system to run. The setup and update scripts re
 2. git clone this repository into that user's home directory and rename it to .minetest
 3. cd into .minetest
 4. run scripts/setup.sh - this will automatically install minetest and screen. Also, it initialized the submodules - all external mods and MineClone2 are installed automatically. It will also install multiserver and its dependencies.
-5. run scripts/start.sh - this will automatically start all worlds. If one world crashes / shuts down it will automatically restart.
+5. run scripts/start.sh - this will automatically start all worlds and multiserver. If one world or multiserver crashes / shuts down it will automatically restart.
 
-To update, run scripts/update.sh, to restart all worlds run scripts/restart.sh and to stop all worlds run scripts/stop.sh
+To update, run scripts/update.sh, to restart all worlds and multiserver run scripts/restart.sh and to stop all worlds and multiserver run scripts/stop.sh
 
 Organisation structure
 -------------------
@@ -38,13 +38,13 @@ scripts/setup.sh: This will install minetest and screen using sudo apt. For mine
 
 scripts/update.sh: This will pull the repository including all submodules. Also, it will update minetest, screen and multiserver.
 
-scripts/start.sh: You can use this to start one or all worlds from the worlds folder. If you pass an argument to it, it will start the specified world, else it will start everything. You can use this script even if some worlds are already running. The worlds will be started in a hidden screen and restarted when killed, shut down using /shutdown or crash. Any started world will have a lock file in the /tmp directory that contains the PID of the current minetest process. When the world is stopped, the lock file is deleted.
+scripts/start.sh: You can use this to start one or all worlds from the worlds folder. If you pass an argument to it, it will start the specified world, else it will start everything. You can use this script even if some worlds are already running. The worlds will be started in a hidden screen and restarted when killed, shut down using /shutdown or crash. Any started world will have a lock file in the /tmp directory that contains the PID of the current minetest process. When the world is stopped, the lock file is deleted. If --multiserver is used, multiserver is started instead of any worlds, and if all worlds are started, multiserver is started as well.
 
-scripts/stop.sh: You can use this to stop one or all worlds from the worlds folder started using the start script. If you pass an argument to it, it will stop the specified world, else it will stop everything. You can use this script even if some worlds are not running.
+scripts/stop.sh: You can use this to stop one or all worlds from the worlds folder started using the start script. If you pass an argument to it, it will stop the specified world, else it will stop everything. You can use this script even if some worlds are not running. If --multiserver is used, multiserver is stopped instead of any worlds, and if all worlds are stopped, multiserver is stopped as well.
 
-scripts/restart.sh: You can use this to restart one or all running worlds. You can use this script even if some worlds are not running. It will only restart the running worlds.
+scripts/restart.sh: You can use this to restart one or all running worlds. You can use this script even if some worlds are not running. It will only restart the running worlds. If --multiserver is used, multiserver is restarted instead of any worlds (in case it is running) and if all worlds are restarted, multiserver is restarted as well (in case it is running).
 
-scripts/console.sh: You can used this to access the console of the world specified in the argument. (minetest --terminal running in a screen)
+scripts/console.sh: You can used this to access the console of the world specified in the argument (minetest --terminal running in a screen). If --multiserver is used, the multiserver screen will be shown.
 
 scripts/common.sh: This script should not be started, it contains common functions imported by other scripts. You can modify it to e.g. change the paths of lock files or screen names.
 
