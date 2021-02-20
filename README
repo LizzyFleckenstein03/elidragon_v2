@@ -21,7 +21,7 @@ Elidragon v2 requires a GNU/Linux x86_64 system to run. The setup and update scr
 1. Create a new user using adduser and switch to it. The user should be able to use sudo.
 2. git clone this repository into that user's home directory and rename it to .minetest
 3. cd into .minetest
-4. run scripts/setup.sh - this will automatically install minetest and screen. Also, it initialized the submodules - all external mods and MineClone2 are installed automatically. It will also install mapserver, multiserver and its dependencies.
+4. run scripts/setup.sh - this will automatically install minetest and screen. Also, it initialized the submodules - all external mods and MineClone2 are installed automatically. It will also install multiserver and its dependencies.
 5. run scripts/start.sh --all - this will automatically start all worlds, multiserver and mapserver. If one world or multiserver / mapserver crashes or shuts down it will automatically restarted.
 
 To update, run scripts/update.sh, to restart all worlds run scripts/restart.sh --worlds and to stop all worlds and multiserver run scripts/stop.sh --all.

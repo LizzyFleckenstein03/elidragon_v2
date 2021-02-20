@@ -15,8 +15,8 @@ sudo apt install minetest screen -y
 # Install multiserver and its dependencies
 go get github.com/HimbeerserverDE/multiserver
 
-# Download & install mapserver
-cd worlds/creative/
-curl -s https://api.github.com/repos/minetest-mapserver/mapserver/releases/latest | grep "mapserver-linux-x86_64" | cut -d : -f 2,3 | tr -d \" | wget -qi -
-chmod +x mapserver-linux-x86_64
-cd ../..
+# Download & install mapserver (disabled for now)
+# cd worlds/creative/
+# curl -s https://api.github.com/repos/minetest-mapserver/mapserver/releases/latest | grep "mapserver-linux-x86_64" | cut -d : -f 2,3 | tr -d \" | wget -qi -
+# chmod +x mapserver-linux-x86_64
+# cd ../..
