@@ -11,4 +11,3 @@ servers:
 default_server: lobby
 force_default_server: true
 admin: "Elidragon"
-csm_restriction_flags: 0
