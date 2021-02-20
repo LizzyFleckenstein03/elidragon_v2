@@ -3,7 +3,7 @@ grouplist.lists = {}
 
 function grouplist.register(group)
 	local list = {}
-	grouplists.lists[group] = list
+	grouplist.lists[group] = list
 	return list
 end
 
