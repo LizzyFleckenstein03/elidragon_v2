@@ -9,7 +9,7 @@ case $1 in
 		screen -r `mapserver_screenname`
 		;;
 	"multiserver")
-		screen -r `multiserver_sceenname`
+		screen -r `multiserver_screenname`
 		;;
 	*)
 		screen -r `world_screenname $1`
