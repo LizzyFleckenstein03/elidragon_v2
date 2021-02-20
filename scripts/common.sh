@@ -25,7 +25,7 @@ function loop_worlds {
 
 function assert_running {
 	if ! is_running $1; then
-		echo "\e[31mWorld $1 is not running\e[0m"
+		echo -e "\e[31mWorld $1 is not running\e[0m"
 		if [ -z "$2" ]; then
 			exit 1
 		else
@@ -60,7 +60,7 @@ function start_world {
 			rm $LOCK
 		"
 
-		echo "\e[32mDone\e[0m"
+		echo -e "\e[32mDone\e[0m"
 	fi
 }
 
@@ -70,7 +70,7 @@ function stop_world {
 		kill_world $1
 		rm `world_lock $1`
 
-		echo "\e[32mDone\e[0m"
+		echo -e "\e[32mDone\e[0m"
 	fi
 }
 
@@ -79,7 +79,7 @@ function restart_world {
 	if assert_running $1 "true"; then
 		kill_world $1
 
-		echo "\e[32mDone\e[0m"
+		echo -e "\e[32mDone\e[0m"
 	fi
 }
 
