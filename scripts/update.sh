@@ -2,8 +2,12 @@
 # Elidragon v2 update script
 # Update all software used by the server
 
-# Update this repo, also update submodules
-git pull --recurse-submodules
+# Pull repository
+git pull
+
+# Update submodules
+git submodule init
+git submodule update
 
 # Update minetest and screen
 sudo apt-get update -y

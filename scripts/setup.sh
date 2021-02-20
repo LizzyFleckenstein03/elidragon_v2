@@ -3,7 +3,8 @@
 # Install everything needed by the server
 
 # Initialize submodules
-git submodule update --recursive --remote
+git submodule init
+git submodule update
 
 # Add apt repo to always get the lastest MT release
 sudo add-apt-repository ppa:minetestdevs/stable
