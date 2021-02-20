@@ -13,15 +13,15 @@ function mapserver_lock {
 }
 
 function world_screenname {
-	echo "Elidragon v2 - $1"
+	echo "ElidragonV2_$1"
 }
 
 function multiserver_screenname {
-	echo "Elidragon v2 - multiserver"
+	echo "ElidragonV2_multiserver"
 }
 
 function mapserver_screenname {
-	echo "Elidragon v2 - mapserver"
+	echo "ElidragonV2_mapserver"
 }
 
 function kill_world {
