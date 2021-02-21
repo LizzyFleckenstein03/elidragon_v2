@@ -1,9 +1,11 @@
 local plot = {}
 
 minetest.register_on_generated(function(minp, maxp)
-	local mgconfig = plot.config.mapgen
-
-	if not mgconfig.enable then
+	local config = assert(plot.config)
+	
+	local mgconfig = config.mapgen
+	
+	if not mgconfig then
 		return
 	end
 
@@ -37,13 +39,13 @@ minetest.register_on_generated(function(minp, maxp)
 		do_multiples(low + r, high + r, base, -r, func)
 	end
 
-	do_borders(minp.x, maxp.x, mgconfig.gap, mgconfig.road_width, function(x)
-		for idx in area:iter(x, math.max(minp.y, min_y), minp.z, x, math.min(maxp.y, max_y), mapx.z) do
+	do_borders(minp.x, maxp.x, config.gap, config.road_width, function(x)
+		for idx in area:iter(x, math.max(minp.y, min_y), minp.z, x, math.min(maxp.y, max_y), maxp.z) do
 			data[idx] = mgconfig.c_border
 		end
 	end)
 
-	do_borders(minp.z, maxp.z, mgconfig.gap, mgconfig.road_width, function(z)
+	do_borders(minp.z, maxp.z, config.gap, config.road_width, function(z)
 		for idx in area:iter(minp.x, math.max(minp.y, min_y), z, maxp.x, math.min(maxp.y, max_y), z) do
 			data[idx] = mgconfig.c_border
 		end

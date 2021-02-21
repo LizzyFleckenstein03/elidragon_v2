@@ -6,7 +6,6 @@ plot.config = {
 	--[[min_y = 2000,
 	max_y = 31000,]]--
 	mapgen = {
-		enable = true,
 		min_y = 1000,
 		max_y = 31000,
 		void_layer = {
