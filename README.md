@@ -1,4 +1,4 @@
-Elidragon v2 Server software documentation
+# **Elidragon v2 Server software documentation**
 ------------------------------------------
 
 This repositiory contains everything required to run the Elidragon v2  Minetest server. Elidragon v2 is the sequel to Elidragon Skyblock and is reusing Skycraft code to a large degree.
@@ -56,9 +56,9 @@ Creating new mods
 If you create a new mod, create a folder mods/elidragon_<name>. It should have a mod.conf containing its name, a small description and your name. It should depend on the elidragon mod and all other mods it needs. Any dependenency (that is not already in the repo or in MineClone2) needs to be added as submodule. It should add a <name> table to the elidragon namespace e.g.
 local testing = {}
 
-function testing.test()
-    print("test")
-end
+function testing.test()<br>
+    print("test")<br>
+end<br>
 
 elidragon.testing = testing
 
@@ -72,5 +72,7 @@ For any new mod an entry needs to be added to all world.mt files, saying load_mo
 
 Adding new worlds
 -----------------
+
+If you want to add a new world, add a folder to the worlds/directory. Then, create .gitignore, world.mt and minetest.conf in that directory. .gitignore needs to contain * to ignore everything, and !minetest.conf and !world.mt to include these two. minetest.conf and world.mt need to be created and filled, world.mt needs to contain load_mod_xy = true / false for every added mod, see the Adding existing mods section for that. Also, world.mt needs to contain database settings for map, players and auth data and settings to enable / disable creative mode and damage. Each world also has it's own configuration file. The concept for worlds and mods is that some mods are for one world only e.g. the skyblock mod for the skyblock world, and some are shared. Make sure that each world has the mods enabled that the enabled mods depend on. Every world needs to have a port specified in the config file and needs to be added to the multiserver configuration. Only the lobby server is supposed to announce to the server list and should announce the port multiserver is running on.
 
 If you want to add a new world, add a folder to the worlds/directory. Then, create .gitignore, world.mt and minetest.conf in that directory. .gitignore needs to contain * to ignore everything, and !minetest.conf and !world.mt to include these two. minetest.conf and world.mt need to be created and filled, world.mt needs to contain load_mod_xy = true / false for every added mod, see the Adding existing mods section for that. Also, world.mt needs to contain database settings for map, players and auth data and settings to enable / disable creative mode and damage. Each world also has it's own configuration file. The concept for worlds and mods is that some mods are for one world only e.g. the skyblock mod for the skyblock world, and some are shared. Make sure that each world has the mods enabled that the enabled mods depend on. Every world needs to have a port specified in the config file and needs to be added to the multiserver configuration. Only the lobby server is supposed to announce to the server list and should announce the port multiserver is running on.
