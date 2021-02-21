@@ -11,3 +11,4 @@ servers:
 default_server: lobby
 force_default_server: true
 admin: "Elidragon"
+rpc_reconnect_interval: 15
