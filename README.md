@@ -20,10 +20,10 @@ Elidragon v2 runs on top of the latest git version of MineClone2, and the lastes
 Elidragon v2 requires a GNU/Linux x86_64 system to run. The setup and update scripts rely on apt and sudo. Go 1.15 or higher is required. The ports 33000, 30030, 30031, 30032, 30033 and 8080 need to be open.
 
 1. Create a new user using adduser and switch to it. The user should be able to use sudo.
-2. git clone this repository into that user's home directory and rename it to .minetest
-3. cd into .minetest
-4. run scripts/setup.sh - this will automatically install minetest and screen. Also, it initialized the submodules - all external mods and MineClone2 are installed automatically. It will also install multiserver and its dependencies.
-5. run scripts/start.sh --all - this will automatically start all worlds, multiserver and mapserver. If one world or multiserver / mapserver crashes or shuts down it will automatically restarted.
+1. git clone this repository into that user's home directory and rename it to .minetest
+1. cd into .minetest
+1. run scripts/setup.sh - this will automatically install minetest and screen. Also, it initialized the submodules - all external mods and MineClone2 are installed automatically. It will also install multiserver and its dependencies.
+1. run scripts/start.sh --all - this will automatically start all worlds, multiserver and mapserver. If one world or multiserver / mapserver crashes or shuts down it will automatically restarted.
 
 To update, run scripts/update.sh, to restart all worlds run scripts/restart.sh --worlds and to stop all worlds and multiserver run scripts/stop.sh --all.
 
