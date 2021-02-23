@@ -2,44 +2,26 @@ local schems = {}
 schems.loaded = {}
 
 function schems.get(name)
-	return schems.loaded[name].data
-end
-
-function schems.get_raw(name)
-	return schems.loaded[name].raw
+	return assert(schems.loaded[name])
 end
 
 function schems.load(name)
-	local schem = {}
-	local file = io.open(minetest.get_modpath(minetest.get_current_modname()) .. "/schems/" .. name .. ".we", "r")
-	schem.raw = file:read()
-	file:seek("set")
-	local _, _, contents = file:read("*number", 1, "*all")
+	local file = assert(io.open(minetest.get_modpath(minetest.get_current_modname()) .. "/schems/" .. name .. ".we", "r"))
+	schems.loaded[name] = file:read()
 	file:close()
-	schem.data = minetest.deserialize(contents)
-	schems.loaded[name] = schem
 end
 
-function schems.check(pos, name)
+function schems.add(pos, name)
 	local schem = schems.get(name)
-	for _, n in ipairs(schem) do
-		if minetest.get_node(vector.add(pos, n)).name ~= n.name then
-			return false
-		end
-	end
-	return true
+	worldedit.deserialize(pos, schem)
 end
 
-function schems.remove(pos, name)
+function schems.flip(name)
 	local schem = schems.get(name)
-	for _, n in ipairs(schem) do
-		minetest.remove_node(vector.add(pos, n))
-	end
-end
-
-function schems.add_schem(pos, schemname)
-	local schem_raw = schems.get_raw(schemname)
-	worldedit.deserialize(pos, schem_raw)
+	schem = schem:gsub("%[\"x\"%] =", "%[\"t\"%] =")
+	schem = schem:gsub("%[\"z\"%] =", "%[\"x\"%] =")
+	schem = schem:gsub("%[\"t\"%] =", "%[\"z\"%] =")
+	schems.loaded[name .. "_flipped"] = schem
 end
 
 elidragon.schems = schems
