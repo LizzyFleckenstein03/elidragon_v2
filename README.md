@@ -7,7 +7,7 @@ This documentation is meant for people who have to deal with the Elidragon v2 se
 
 The goal of Elidragon v2 is to provide a server similar to popular Minecraft servers: When joining a network, you are moved to a lobby, and from there players can select which gamemode they want to play (e.g. Creative, Survival, Skyblock or Minigames) and are automatically connected to the proper server, whithout having to rejoin the server by any means. Players can get anything they want within one network and can easily switch between gamemodes and make progress in different worlds.
 
-Minetest does not support "server-hopping" natively; therefore the [multiserver proxy](https://github.com/HimbeerserverDE/multiserver) written in Go by HimbeerserverDE is used. multiserver depends on [mt rudp](https://github.com/anon55555/mt) by anon55555.
+Minetest does not support "server-hopping" natively; therefore the multiserver proxy (https://github.com/HimbeerserverDE/multiserver) written in Go by HimbeerserverDE is used. multiserver depends on mt rudp (https://github.com/anon55555/mt) by anon55555.
 
 For the creative map, minetest mapserver is used.
 
