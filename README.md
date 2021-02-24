@@ -21,10 +21,10 @@ Elidragon v2 requires a GNU/Linux x86_64 system to run. The setup and update scr
 1. Create a new user using adduser and switch to it. The user should be able to use sudo.
 1. git clone this repository into that user's home directory and rename it to .minetest
 1. cd into .minetest
-1. run scripts/setup.sh - this will automatically install minetest and screen. Also, it initialized the submodules - all external mods and MineClone2 are installed automatically. It will also install multiserver and its dependencies.
-1. run scripts/start.sh --all - this will automatically start all worlds, multiserver and mapserver. If one world or multiserver / mapserver crashes or shuts down it will automatically restarted.
+1. run `scripts/setup.sh` - this will automatically install minetest and screen. Also, it initialized the submodules - all external mods and MineClone2 are installed automatically. It will also install multiserver and its dependencies.
+1. run `scripts/start.sh --all` - this will automatically start all worlds, multiserver and mapserver. If one world or multiserver / mapserver crashes or shuts down it will automatically restarted.
 
-To update, run scripts/update.sh, to restart all worlds run scripts/restart.sh --worlds and to stop all worlds and multiserver run scripts/stop.sh --all.
+To update, run `scripts/update.sh`, to restart all worlds run `scripts/restart.sh --worlds` and to stop all worlds and multiserver run `scripts/stop.sh --all`.
 
 ### Organisation structure
 ---
@@ -41,20 +41,20 @@ For many tasks it is recommended to use the scripts from the scripts/ directory.
 
 `scripts/update.sh`: This will pull the repository including all submodules. Also, it will update minetest, screen and multiserver.
 
-`scripts/start.sh <worldname> | multiserver | mapserver | --all | --worlds`: You can use this to start one or all worlds from the worlds folder, or the mapserver / multiserver. When --all is used it will start everything, --worlds starts all worlds. You can use --all or --world even if some tasks that would be started by it are already running. All tasks will be started in a hidden screen and restarted when killed, shut down using /shutdown or they crash. Any started task will have a lock file in the /tmp directory that contains the PID of the current process. When the task is stopped, the lock file is deleted.
+`scripts/start.sh <worldname> | multiserver | mapserver | --all | --worlds`: You can use this to start one or all worlds from the worlds folder, or the mapserver / multiserver. When --all is used it will start everything, --worlds starts all worlds. You can use `--all` or `--world` even if some tasks that would be started by it are already running. All tasks will be started in a hidden screen and restarted when killed, shut down using /shutdown or they crash. Any started task will have a lock file in the /tmp directory that contains the PID of the current process. When the task is stopped, the lock file is deleted.
 
 `scripts/stop.sh <worldname> | multiserver | mapserver | --all | --worlds`: You can use this to stop one or all worlds from the worlds folder or the mapserver / multiserver started using the start script. When --all is used it will stop everything, --worlds stops all worlds. You can use --all or --world even if some tasks that would be stopped by it are not running.
 
-`scripts/restart.sh <worldname> | multiserver | mapserver | --all | --worlds`: You can use this to restart one or all worlds from the worlds folder or the mapserver / multiserver started using the start script. When --all is used it will restart everything, --worlds restarts all worlds. You can use --all or --world even if some tasks that would be restarted by it are not running - only the running tasks will be restarted.
+`scripts/restart.sh <worldname> | multiserver | mapserver | --all | --worlds`: You can use this to restart one or all worlds from the worlds folder or the mapserver / multiserver started using the start script. When `--all` is used it will restart everything, `--worlds` restarts all worlds. You can use `--all` or `--world` even if some tasks that would be restarted by it are not running - only the running tasks will be restarted.
 
-`scripts/console.sh <worldname> | multiserver | mapserver`: You can used this to access the console of the world specified in the argument (minetest --terminal running in a screen). If multiserver / mapserver is used, the multiserver / mapserver output will be shown (in real-time).
+`scripts/console.sh <worldname> | multiserver | mapserver`: You can used this to access the console of the world specified in the argument (`minetest --terminal` running in a screen). If multiserver / mapserver is used, the multiserver / mapserver output will be shown (in real-time).
 
 `scripts/common.sh`: This script should not be started, it contains common functions imported by other scripts. You can modify it to e.g. change the paths of lock files or screen names.
 
 ### Creating new mods
 ---
 
-If you create a new mod, create a folder mods/elidragon_<name>. It should have a mod.conf containing its name, a small description and your name. It should depend on the elidragon mod and all other mods it needs. Any dependenency (that is not already in the repo or in MineClone2) needs to be added as submodule. It should add a <name> table to the elidragon namespace e.g.
+If you create a new mod, create a folder `mods/elidragon_<name>`. It should have a `mod.conf` containing its name, a small description and your name. It should depend on the elidragon mod and all other mods it needs. Any dependenency (that is not already in the repo or in MineClone2) needs to be added as submodule. It should add a <name> table to the elidragon namespace e.g.
 
 ```lua
 local testing = {}
@@ -66,13 +66,13 @@ end
 elidragon.testing = testing
 ```
 
-When using more than one function from the same other elidragon_ mod, you should import it by doing local othermod = elidragon.othermod at the beginning of the file. All code should be inside init.lua, and don't be scared of creating multiple mods at once - the system is meant to be as modular as possible. After you created the mod, you have to complete the steps for Adding existing mods (except adding the submodule ofc).
+When using more than one function from the same other elidragon_ mod, you should import it by doing `local othermod = elidragon.othermod` at the beginning of the file. All code should be inside init.lua, and don't be scared of creating multiple mods at once - the system is meant to be as modular as possible. After you created the mod, you have to complete the steps for Adding existing mods (except adding the submodule ofc).
 
 ### Adding existing mods
 ---
 
 If you want to add an external mod, cd to the mods directory and type git submodule add <git repo of external mod>.
-For any new mod an entry needs to be added to all world.mt files, saying load_mod_xy = true / false. This is important because if you do not specify load_mod_xy, Minetest will automatically add it, and we do not want minetest to mess with files added to git.
+For any new mod an entry needs to be added to all world.mt files, saying `load_mod_xy = true / false`. This is important because if you do not specify `load_mod_xy`, Minetest will automatically add it, and we do not want minetest to mess with files added to git.
 
 ### Adding new worlds
 ---
