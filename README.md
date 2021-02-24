@@ -1,4 +1,4 @@
-# **Elidragon v2 Server software documentation**
+# Elidragon v2 Server software documentation
 
 This repositiory contains everything required to run the Elidragon v2  Minetest server. Elidragon v2 is the sequel to Elidragon Skyblock and is reusing Skycraft code to a large degree.
 
@@ -37,19 +37,19 @@ The idea is that once the repository is clones onto the server, it contains all 
 
 For many tasks it is recommended to use the scripts from the scripts/ directory. All scripts need to be run from the root path of this repository.
 
-scripts/setup.sh: This will install minetest and screen using sudo apt. For minetest a apt repository is added that is up to date (the official repos are often one or two versions behind). It will use go to install multiserver and mapserver, also it will init and update the submodules, which is very important because all external mods are added as submodules.
+`scripts/setup.sh`: This will install minetest and screen using sudo apt. For minetest a apt repository is added that is up to date (the official repos are often one or two versions behind). It will use go to install multiserver and mapserver, also it will init and update the submodules, which is very important because all external mods are added as submodules.
 
-scripts/update.sh: This will pull the repository including all submodules. Also, it will update minetest, screen and multiserver.
+`scripts/update.sh`: This will pull the repository including all submodules. Also, it will update minetest, screen and multiserver.
 
-scripts/start.sh <worldname> | multiserver | mapserver | --all | --worlds: You can use this to start one or all worlds from the worlds folder, or the mapserver / multiserver. When --all is used it will start everything, --worlds starts all worlds. You can use --all or --world even if some tasks that would be started by it are already running. All tasks will be started in a hidden screen and restarted when killed, shut down using /shutdown or they crash. Any started task will have a lock file in the /tmp directory that contains the PID of the current process. When the task is stopped, the lock file is deleted.
+`scripts/start.sh <worldname> | multiserver | mapserver | --all | --worlds`: You can use this to start one or all worlds from the worlds folder, or the mapserver / multiserver. When --all is used it will start everything, --worlds starts all worlds. You can use --all or --world even if some tasks that would be started by it are already running. All tasks will be started in a hidden screen and restarted when killed, shut down using /shutdown or they crash. Any started task will have a lock file in the /tmp directory that contains the PID of the current process. When the task is stopped, the lock file is deleted.
 
-scripts/stop.sh <worldname> | multiserver | mapserver | --all | --worlds: You can use this to stop one or all worlds from the worlds folder or the mapserver / multiserver started using the start script. When --all is used it will stop everything, --worlds stops all worlds. You can use --all or --world even if some tasks that would be stopped by it are not running.
+`scripts/stop.sh <worldname> | multiserver | mapserver | --all | --worlds`: You can use this to stop one or all worlds from the worlds folder or the mapserver / multiserver started using the start script. When --all is used it will stop everything, --worlds stops all worlds. You can use --all or --world even if some tasks that would be stopped by it are not running.
 
-scripts/restart.sh <worldname> | multiserver | mapserver | --all | --worlds: You can use this to restart one or all worlds from the worlds folder or the mapserver / multiserver started using the start script. When --all is used it will restart everything, --worlds restarts all worlds. You can use --all or --world even if some tasks that would be restarted by it are not running - only the running tasks will be restarted.
+`scripts/restart.sh <worldname> | multiserver | mapserver | --all | --worlds`: You can use this to restart one or all worlds from the worlds folder or the mapserver / multiserver started using the start script. When --all is used it will restart everything, --worlds restarts all worlds. You can use --all or --world even if some tasks that would be restarted by it are not running - only the running tasks will be restarted.
 
-scripts/console.sh <worldname> | multiserver | mapserver: You can used this to access the console of the world specified in the argument (minetest --terminal running in a screen). If multiserver / mapserver is used, the multiserver / mapserver output will be shown (in real-time).
+`scripts/console.sh <worldname> | multiserver | mapserver`: You can used this to access the console of the world specified in the argument (minetest --terminal running in a screen). If multiserver / mapserver is used, the multiserver / mapserver output will be shown (in real-time).
 
-scripts/common.sh: This script should not be started, it contains common functions imported by other scripts. You can modify it to e.g. change the paths of lock files or screen names.
+`scripts/common.sh`: This script should not be started, it contains common functions imported by other scripts. You can modify it to e.g. change the paths of lock files or screen names.
 
 ### Creating new mods
 ---
