@@ -2,16 +2,17 @@ local class = elidragon.class
 
 local db = {}
 
-local paths = {}
+local private = {}
 local worldpath = minetest.get_worldpath()
 
-function db:constructor(name, initial_data, dir)
-	paths[self] = dir or worldpath .. "/" .. name .. ".json"
+function db:constructor(name, initial_data, dir, env)
+	private[self] = {env = env or _G, path = (dir or worldpath) .. "/" .. name .. ".json"}
 	self:load(initial_data or {})
 end
 
 function db:load(initial_data)
-	local file = io.open(paths[self], "r")
+	local _self = private[self]
+	local file = _self.env.io.open(_self.path, "r")
 	local data = file and minetest.parse_json(file:read()) or {}
 	if file then
 		file:close()
@@ -27,14 +28,15 @@ function db:load(initial_data)
 end
 
 function db:save()
-	local file = assert(io.open(paths[self], "w"))
+	local _self = private[self]
+	local file = assert(_self.env.io.open(_self.path, "w"))
 	file:write(minetest.write_json(self))
 	file:close()
 end
 
 function db:close()
 	self:save()
-	paths[self] = nil
+	private[self] = nil
 end
 
 minetest.register_on_shutdown(function()
