@@ -8,14 +8,14 @@ local playerdb = {
 local players = playerdb.players
 local env = assert(minetest.request_insecure_environment())
 
-minetest.register_on_joinplayer(function (player)
+table.insert(minetest.registered_on_joinplayers, 1, function(player)
 	local name = player:get_player_name()
 	if name ~= "rpc" then
 		players[name] = db(name, playerdb.initial_data, "players", env)
 	end
 end)
 
-minetest.register_on_leaveplayer(function (player)
+minetest.register_on_leaveplayer(function(player)
 	local name = player:get_player_name()
 	if name ~= "rpc" then
 		players[name]:close()

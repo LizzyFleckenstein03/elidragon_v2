@@ -3,34 +3,35 @@ local playerdb = elidragon.playerdb
 local ranks = {}
 
 local players = playerdb.players
-local admin = minetest.settings:get_string("name")
+local admin = minetest.settings:get("name")
+local server = minetest.settings:get("server_name")
 playerdb.initial_data.rank = "player"
 
 function ranks.get(name)
+	local rank
 	if name == "rpc" then
-		return "system"
+		rank = "system"
+	else
+		local playerdata = players[name]
+		if playerdata then
+			rank = playerdata.rank
+		else
+			rank = name == admin and "console" or "offline"
+		end
 	end
-	local playerdata = players[name]
-	if not playerdata then
-		return name == admin and "console" or "offline"
-	end
-	return playerdata.rank
-end
-
-function ranks.get_def(name)
-	return ranks.defs[ranks.get(name)]
+	return rank, ranks.defs[rank]
 end
 
 function ranks.get_player_name(name, brackets)
-	local def = ranks.get_def(name)
+	local _, def = ranks.get(name)
 	brackets = brackets or {"", ""}
 	return minetest.colorize("#" .. def.color, def.tag) .. brackets[1] .. name .. brackets[2]
 end
 
 function ranks.reload(player)
 	local name = player:get_player_name()
-	local def = ranks.get_def(name)
-	player:set_nametag_attributes({text = ranks.get_player_name(name)})
+	local rank, def = ranks.get(name)
+	player:set_nametag_attributes({text = rank == "system" and "" or ranks.get_player_name(name)})
 	minetest.set_player_privs(name, assert(def.privs))
 end
 
@@ -38,7 +39,8 @@ function ranks.set(name, rank)
 	if name == "rpc" then
 		return false, "The rank of the rpc player cannot be changed."
 	end
-	if not ranks.defs[rank] then
+	local rank_def = ranks.defs[rank]
+	if not rank_def or rank_def.can_assign == false then
 		return false, "Invalid rank."
 	end
 	local player = minetest.get_player_by_name(name)
@@ -51,14 +53,19 @@ function ranks.set(name, rank)
 	ranks.reload(player)
 end
 
-minetest.register_on_joinplayer(function(player)
-	minetest.chat_send_all(ranks.get_player_name(player) .. " has joined the Server.")
-	ranks.reload(player)
-end)
+minetest.register_on_joinplayer(ranks.reload)
 
-minetest.register_on_leaveplayer(function(player)
-	minetest.chat_send_all(ranks.get_player_name(player) .. " has left the Server.")
-end)
+function minetest.send_join_message(name)
+	if name ~= "rpc" then
+		minetest.chat_send_all("*** " .. ranks.get_player_name(name) .. " joined " .. server .. ".")
+	end
+end
+
+function minetest.send_leave_message(name, timed_out)
+	if name ~= "rpc" then
+		minetest.chat_send_all("*** " .. ranks.get_player_name(name) .. " left " .. server .. (timed_out and " (timed out)" or "") .. ".")
+	end
+end
 
 minetest.register_on_chat_message(function(name, message)
 	if not minetest.check_player_privs(name, {shout = true}) then
@@ -80,13 +87,13 @@ minetest.register_chatcommand("rank", {
 })
 
 local function get_privs_setting(setting, tbl)
-	local privs = minetest.string_to_privs(minetest.settings:get_string(setting))
+	local privs = minetest.string_to_privs(minetest.settings:get(setting))
 	if tbl then
 		for k, v in pairs(tbl) do
 			privs[k] = v
 		end
 	end
-	return privs 
+	return privs
 end
 
 minetest.register_on_mods_loaded(function()
@@ -95,7 +102,7 @@ minetest.register_on_mods_loaded(function()
 	local moderator_privs = get_privs_setting("moderator_privs", default_privs)
 	local vip_privs = get_privs_setting("vip_privs", default_privs)
 	local mvp_privs = get_privs_setting("mvp_privs", vip_privs)
-	
+
 
 	ranks.defs = {
 		developer = {
@@ -147,20 +154,23 @@ minetest.register_on_mods_loaded(function()
 			privs = default_privs,
 		},
 		console = {
-			tag = "[Console] ",
+			tag = "[Console]",
 			color = "000000",
 			description = "This is an offline rank for the console.",
+			can_assign = false,
 		},
 		offline = {
-			tag = "[Offline] ",
+			tag = "[Offline]",
 			color = "969696",
 			description = "This is the default offline rank.",
+			can_assign = false,
 		},
 		system = {
-			tag = "[System] ",
+			tag = "[System]",
 			color = "505050",
 			description = "This is the rank for the rpc player, which is a bot.",
 			privs = {},
+			can_assign = false,
 		},
 	}
 end)
