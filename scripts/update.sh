@@ -3,11 +3,7 @@
 # Update all software used by the server
 
 # Pull repository
-git pull
-
-# Update submodules
-git submodule init
-git submodule update
+git pull --recurse-submodules
 
 # Update minetest and screen
 sudo apt-get update -y
