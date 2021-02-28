@@ -15,6 +15,7 @@ load_mod_elidragon_playerdb = true
 load_mod_elidragon_plot = true
 load_mod_elidragon_plotmg = true
 load_mod_elidragon_random = false
+load_mod_elidragon_ranks = true
 load_mod_elidragon_request = true
 load_mod_elidragon_schems = false
 load_mod_elidragon_skyblock = true
