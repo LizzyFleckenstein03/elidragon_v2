@@ -68,9 +68,12 @@ function run_in_screen {
 }
 
 function start_mapserver {
-	echo -n "Starting Mapserver... "
+	echo -n "Starting mapserver... "
 	if ! mapserver_running; then
 		cd worlds/creative
+		while ! [ -f map.sqlite ]; do
+			sleep 0.1
+		done
 		run_in_screen `mapserver_screenname` `mapserver_lock` "./mapserver-linux-x86_64"
 		cd ../..
 		echo -e "\e[32mDone\e[0m"

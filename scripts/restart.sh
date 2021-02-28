@@ -6,9 +6,9 @@ source scripts/common.sh
 
 case $1 in
 	"--all")
-		restart_mapserver
-		restart_multiserver
 		loop_worlds restart_world
+		restart_multiserver
+		restart_mapserver
 		;;
 	"--worlds")
 		loop_worlds restart_world

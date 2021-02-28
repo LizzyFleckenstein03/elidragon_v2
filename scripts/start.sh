@@ -6,9 +6,9 @@ source scripts/common.sh
 
 case $1 in
 	"--all")
-		start_mapserver
-		start_multiserver
 		loop_worlds start_world
+		start_multiserver
+		start_mapserver
 		;;
 	"--worlds")
 		loop_worlds start_world
