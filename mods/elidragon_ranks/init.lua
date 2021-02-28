@@ -23,16 +23,16 @@ function ranks.get(name)
 end
 
 function ranks.get_player_name(name, brackets)
-	local _, def = ranks.get(name)
+	local _, rank_def = ranks.get(name)
 	brackets = brackets or {"", ""}
-	return minetest.colorize("#" .. def.color, def.tag) .. brackets[1] .. name .. brackets[2]
+	return minetest.colorize("#" .. rank_def.color, rank_def.tag) .. brackets[1] .. name .. brackets[2]
 end
 
 function ranks.reload(player)
 	local name = player:get_player_name()
-	local rank, def = ranks.get(name)
+	local rank, rank_def = ranks.get(name)
 	player:set_nametag_attributes({text = rank == "system" and "" or ranks.get_player_name(name)})
-	minetest.set_player_privs(name, assert(def.privs))
+	minetest.set_player_privs(name, assert(rank_def.privs))
 end
 
 function ranks.set(name, rank)
@@ -51,6 +51,34 @@ function ranks.set(name, rank)
 	playerdata.rank = rank
 	playerdata:save()
 	ranks.reload(player)
+end
+
+function ranks.iterate_players(list)
+	local players = {}
+	for _, player in ipairs(list or minetest.get_connected_players()) do
+		local name = player:get_player_name()
+		if name ~= "rpc" then
+			local rank, rank_def = ranks.get(name)
+			table.insert(players, {
+				name = name,
+				ref = player,
+				rank = rank,
+				rank_def = rank_def,
+				value = rank_def.value
+			})
+		end
+	end
+	table.sort(players, function(a, b)
+		return a.value > b.value
+	end)
+	local i = 0
+	return function()
+		i = i + 1
+		local player = players[i]
+		if player then
+			return i, player.name, player.ref, player.rank, player.rank_def
+		end
+	end
 end
 
 minetest.register_on_joinplayer(ranks.reload)
@@ -110,48 +138,56 @@ minetest.register_on_mods_loaded(function()
 			color = "900A00",
 			description = "The Developer rank is for the admins who maintain the server software.",
 			privs = all_privs,
+			value = 7,
 		},
 		admin = {
 			tag = "[Admin]",
 			color = "FF2D8D",
 			description = "The Admin rank is for people with ssh access to the server, they have all privileges. They are members of the Elidragon group.",
 			privs = all_privs,
+			value = 6,
 		},
 		moderator = {
 			tag = "[Moderator]",
 			color = "006BFF",
 			description = "People who moderate the server.",
 			privs = moderator_privs,
+			value = 5,
 		},
 		contributor = {
 			tag = "[Contributor]",
 			color = "9D00FF",
 			description = "The Contributor rank is for people that contribute to the server software. It has the same privs as the MVP rank.",
 			privs = mvp_privs,
+			value = 4,
 		},
 		builder = {
 			tag = "[Builder]",
 			color = "FF9C00",
 			description = "The Builder rank is for people that have helped constructing the buildings in the lobby etc. It has the same privs as the MVP rank.",
 			privs = mvp_privs,
+			value = 3,
 		},
 		mvp = {
 			tag = "[MVP]",
 			color = "0CDCD8",
 			description = "The MVP rank can be purchased in out store (upcoming). It is purely cosmetic.",
 			privs = mvp_privs,
+			value = 2,
 		},
 		vip = {
 			tag = "[VIP]",
 			color = "2BEC37",
 			description = "The VIP rank can be purchased in out store (upcoming). It is purely cosmetic.",
 			privs = vip_privs,
+			value = 1,
 		},
 		player = {
 			tag = "",
 			color = "FFFFFF",
 			description = "This is the rank for normal players.",
 			privs = default_privs,
+			value = 0,
 		},
 		console = {
 			tag = "[Console]",
@@ -174,3 +210,5 @@ minetest.register_on_mods_loaded(function()
 		},
 	}
 end)
+
+elidragon.ranks = ranks

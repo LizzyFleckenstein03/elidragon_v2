@@ -12,6 +12,7 @@ load_mod_elidragon_db = true
 load_mod_elidragon_grouplist = false
 load_mod_elidragon_luckyblock = false
 load_mod_elidragon_playerdb = true
+load_mod_elidragon_playerlist = true
 load_mod_elidragon_plot = true
 load_mod_elidragon_plotmg = true
 load_mod_elidragon_random = false
