@@ -7,6 +7,7 @@ player_backend = sqlite3
 load_mod_default = false
 load_mod_elidragon = true
 load_mod_elidragon_class = true
+load_mod_elidragon_commands = true
 load_mod_elidragon_creative = false
 load_mod_elidragon_db = true
 load_mod_elidragon_grouplist = false

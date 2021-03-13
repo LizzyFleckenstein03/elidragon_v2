@@ -1,5 +1,6 @@
 local proxy = {
 	WORLDS = {"lobby", "creative", "survival", "skyblock"},
+	WORLD = minetest.settings:get("world")
 }
 
 elidragon = setmetatable({}, {
