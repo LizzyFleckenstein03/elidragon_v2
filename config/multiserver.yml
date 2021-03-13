@@ -11,4 +11,11 @@ servers:
 default_server: lobby
 force_default_server: true
 admin: "Elidragon"
-rpc_reconnect_interval: 15
+server_reintergration_interval: 15
+disable_builtin: false
+serverlist_url: "https://servers.minetest.net"
+serverlist_address: "zap.elidragon.com"
+serverlist_name: "Elidragon v2 [alpha]"
+serverlist_desc: "Alpha server for Elidragon v2. The server may reset anytime, so it is not recommended to make any progess yet. Expect crashes, restarts, downtime and limited functionality. Subgame: MineClone2. Uses multiserver by HimbeerserverDE."
+serverlist_damage: true
+serverlist_pvp: true
