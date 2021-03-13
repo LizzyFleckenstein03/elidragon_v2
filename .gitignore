@@ -1,4 +1,4 @@
 cache/
 storage/
-players/
+players/*
 !players/.gitkeep
