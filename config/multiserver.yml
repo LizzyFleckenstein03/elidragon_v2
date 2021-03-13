@@ -12,7 +12,7 @@ default_server: lobby
 force_default_server: true
 admin: "Elidragon"
 server_reintergration_interval: 15
-disable_builtin: false
+disable_builtin: true
 serverlist_url: "https://servers.minetest.net"
 serverlist_address: "zap.elidragon.com"
 serverlist_name: "Elidragon v2 [alpha]"
