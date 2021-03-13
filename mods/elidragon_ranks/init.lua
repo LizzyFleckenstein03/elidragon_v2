@@ -53,21 +53,25 @@ function ranks.set(name, rank)
 	ranks.reload(player)
 end
 
-function ranks.iterate_players(list)
-	local players = {}
-	for _, player in ipairs(list or minetest.get_connected_players()) do
+local function filter_rpc(func)
+	for _, player in ipairs(minetest.get_connected_players()) do
 		local name = player:get_player_name()
 		if name ~= "rpc" then
-			local rank, rank_def = ranks.get(name)
-			table.insert(players, {
-				name = name,
-				ref = player,
-				rank = rank,
-				rank_def = rank_def,
-				value = rank_def.value
-			})
+			func(player, name)
 		end
 	end
+end
+
+function playerlist.iterator()
+	local players = {}
+	filter_rpc(function(player, name)
+		local _, rank_def = ranks.get(name)
+		table.insert(players, {
+			ref = player,
+			color = tonumber(rank_def.color, 16),
+			value = rank_def.value,
+		})
+	end)
 	table.sort(players, function(a, b)
 		return a.value > b.value
 	end)
@@ -76,9 +80,17 @@ function ranks.iterate_players(list)
 		i = i + 1
 		local player = players[i]
 		if player then
-			return i, player.name, player.ref, player.rank, player.rank_def
+			return i, player.ref, player.color
 		end
 	end
+end
+
+function playerlist.count()
+	local count = 0
+	filter_rpc(function()
+		count = count + 1
+	end)
+	return count
 end
 
 minetest.register_on_joinplayer(ranks.reload)

@@ -19,3 +19,6 @@
 [submodule "textures/server"]
 	path = textures/server
 	url = https://github.com/EliasFleckenstein03/mc-textures
+[submodule "mods/playerlist"]
+	path = mods/playerlist
+	url = https://github.com/EliasFleckenstein03/playerlist
